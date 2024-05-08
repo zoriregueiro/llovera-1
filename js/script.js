@@ -58,36 +58,39 @@ buttonSend.addEventListener("click", () => {
         });
       }
 
-      // function showHourlyData(body) {
-      //   const codWeather = body?.hourly.weather_code;
-      //   const rain = body?.hourly.rain;
-      //   const hour = body?.hourly.time;
-      //   console.log(body);
-      //   rain?.map((item, index) => {
-      //     const container = document.createElement("div");
-      //     container.classList.add("nextHoursContainer");
-      //     const section = document.createElement("section");
-      //     const next = document.createElement("h3");
-      //     const degree = document.createElement("p");
-      //     const img = document.createElement("img");
+      function showHourlyData(body) {
+        const codWeather = body.hourly.weather_code;
+        const rain = body.hourly.rain;
+        const hour = body.hourly.time;
+        console.log(body);
+        for (let index = 0; index < array.length; index++) {
+          const element = array[index];
+        }
+        rain.map((item, index) => {
+          const container = document.createElement("div");
+          container.classList.add("nextHoursContainer");
+          const section = document.createElement("section");
+          const next = document.createElement("h3");
+          const degree = document.createElement("p");
+          const img = document.createElement("img");
 
-      //     const hourData = hour[index].split("T")[1];
-      //     next.textContent = `${hourData} h.`;
+          const hourData = hour[index].split("T")[1];
+          next.textContent = `${hourData} h.`;
 
-      //     console.log(item);
+          console.log(item);
 
-      //     img.src = getWeatherIcon(codWeather[index]);
+          img.src = getWeatherIcon(codWeather[index]);
 
-      //     degree.textContent = `${Math.round(parseInt(item.temp) - 273.15)} ºC`;
+          degree.textContent = `${Math.round(parseInt(item.temp) - 273.15)} ºC`;
 
-      //     section.appendChild(next);
-      //     section.appendChild(img);
-      //     section.appendChild(degree);
-      //     container.appendChild(section);
-      //     nextHours.appendChild(container);
-      //   });
-      // }
-      // showHourlyData();
+          section.appendChild(next);
+          section.appendChild(img);
+          section.appendChild(degree);
+          container.appendChild(section);
+          nextHours.appendChild(container);
+        });
+      }
+      showHourlyData();
 
       getRain();
       console.log(body.hourly.rain);
