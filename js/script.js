@@ -3,6 +3,12 @@ import { getWeatherIcon } from "./helpers.js";
 
 const buttonSend = document.querySelector("button");
 
+const rain = document.querySelector("#rain");
+const noRain = document.querySelector("#noRain");
+const error = document.querySelector("#error");
+const actually = document.querySelector("#actually");
+const nextHours = document.querySelector("#nextHours");
+
 buttonSend.addEventListener("click", () => {
   console.log("click");
 
@@ -58,37 +64,28 @@ buttonSend.addEventListener("click", () => {
         });
       }
 
-      function showHourlyData(body) {
-        const codWeather = body.hourly.weather_code;
-        const rain = body.hourly.rain;
-        const hour = body.hourly.time;
+      function showHourlyData() {
         console.log(body);
-        for (let index = 0; index < array.length; index++) {
-          const element = array[index];
-        }
-        rain.map((item, index) => {
+        for (let index = 0; index < 8; index++) {
           const container = document.createElement("div");
           container.classList.add("nextHoursContainer");
           const section = document.createElement("section");
           const next = document.createElement("h3");
           const degree = document.createElement("p");
           const img = document.createElement("img");
-
-          const hourData = hour[index].split("T")[1];
+          const hourData = body.hourly.time[index].split("T")[1];
           next.textContent = `${hourData} h.`;
 
-          console.log(item);
+          img.src = getWeatherIcon(body.hourly.weather_code[index]);
 
-          img.src = getWeatherIcon(codWeather[index]);
-
-          degree.textContent = `${Math.round(parseInt(item.temp) - 273.15)} ºC`;
+          degree.textContent = `${body.hourly.temperature_2m[index]}ºC`;
 
           section.appendChild(next);
           section.appendChild(img);
           section.appendChild(degree);
           container.appendChild(section);
           nextHours.appendChild(container);
-        });
+        }
       }
       showHourlyData();
 
